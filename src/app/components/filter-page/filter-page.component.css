@@ -1,0 +1,18 @@
+#iconBtn {
+    color: white;
+}
+
+#filterNav {
+    display: flex;
+    justify-content: left;
+    background-color: darkgrey;
+    color: white;
+}
+
+#filterNav > span {
+    margin-top: 4px;
+    margin-left: 2px;
+}
+#filterNav > img {
+    margin-left: auto;
+}

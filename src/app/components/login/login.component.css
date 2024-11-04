@@ -1,0 +1,46 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+form > .legend {
+    margin-bottom: 6pt;
+}
+
+form > .submit-btn {
+    padding-left: 5.5em;
+    padding-right: 5.5em;
+    border: 0px;
+    border-radius: 4%;
+    height: 36px;
+    background-color: darkcyan;
+    color: white;
+    cursor: pointer;
+}
+
+form >.example-full-width {
+    position: relative;
+    width: 14em;
+}
+
+form > .submit-btn:hover {
+    background-color: rgb(84, 200, 200);
+}
+
+#eyeBtn {
+    border-width: 0cap;
+    border-radius: 16px;
+}
+
+#eyeBtn:hover {
+    scale: 1.1;
+}
+
+#forgotPassword {
+    font-size: small;
+    font-style: italic;
+}

@@ -1,0 +1,25 @@
+<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:1368325630. -->
+<form class="example-form">
+  <legend [ngClass]="'legend'">Iniciar sesión</legend>
+  <mat-form-field [ngClass]="'example-full-width'">
+    <mat-label>Correo electrónico</mat-label>
+    <input type="email" matInput placeholder="usuario@dominio">
+  </mat-form-field>
+
+  <mat-form-field [ngClass]="'example-full-width'">
+    <mat-label>Contraseña</mat-label>
+    <input matInput [type]="hide() ? 'password' : 'text'"  placeholder="********" />
+    <button
+      id="eyeBtn"
+      mat-icon-button
+      matSuffix
+      (click)="clickEvent($event)"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide()"
+    >
+      <mat-icon id="eye">{{hide() ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </button>
+  </mat-form-field>
+  <a href="/#" id="forgotPassword">¿Olvidaste tu contraseña?</a>
+  <button mat-stroked-button class="submit-btn">INGRESAR</button>
+</form>
