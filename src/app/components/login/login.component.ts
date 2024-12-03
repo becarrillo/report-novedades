@@ -1,8 +1,7 @@
-import { Component, effect, model, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -14,7 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule,
     MatSlideToggleModule
   ],
   animations: [],
@@ -22,10 +20,49 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  hide = signal(true);
+  hide = signal<boolean>(true);
+  logBtnsClasses = signal<LoginBtnsClasses>({
+    "authorization-visible-btn": false,
+    "signout-visible-btn": false
+  });
+
+  private readonly token : string | null = window.localStorage.getItem('token');
+
+  constructor() {
+    this.token = window.localStorage.getItem('token');
+    this.token!==null && this.token.length>0 ? (
+      this.logBtnsClasses.set({
+        "authorization-visible-btn": false,
+        "signout-visible-btn": true
+      })
+    ) : (
+      window.localStorage.setItem('data', ''),
+      this.logBtnsClasses.set({
+        "authorization-visible-btn": true,
+        "signout-visible-btn": false
+      })
+    );
+  }
   
-  clickEvent(event: MouseEvent) {
+  clickEvent(event: MouseEvent) : void {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
+
+  getToken() : string | null {
+    return this.token;
+  }
+
+  legendIsNecessary() : boolean {
+    return (
+      window.localStorage!.getItem('token')===null || 
+      window.localStorage.getItem('token')!.length===0 ? 
+        true : false
+    )
+  }
+}
+
+interface LoginBtnsClasses {
+  'authorization-visible-btn': boolean;
+  'signout-visible-btn': boolean;
 }

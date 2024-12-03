@@ -1,0 +1,158 @@
+.novedades-container {
+    position: absolute;
+    display: flex;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    background: #eee;
+}
+
+@media screen and (max-width: 576px) {
+    .novedades-container {
+        flex-direction: column-reverse;
+    }
+}
+
+@media screen and (min-width: 577px) {
+    .novedades-container {
+        flex-direction: row;
+    }
+}
+
+#filterNav {
+    display: flex;
+    justify-content: left;
+    background-color: darkgrey;
+    color: white;
+}
+
+#filterNav > span {
+    margin-top: 4px;
+    margin-left: 2px;
+}
+
+#filterNav>img {
+    margin-left: auto;
+}
+
+#list {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+#list > .listitem {
+    padding: 0%;
+}
+
+.sidenav-btn:hover {
+    scale: 1.09;
+    background-color: rgb(208, 250, 248);
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.novedades-container>.novedades-sidenav {
+    position: fixed;
+    top: 2.8em;
+    width: 56px;
+    height: 80vh;
+    background-color: white;
+    z-index: 1;
+    transition-duration: 0.4s;
+    transition-timing-function: ease-in;
+    transition-property: scale, translate;
+    transform-style: preserve-3d;
+}
+
+.novedades-container>.novedades-sidenav:hover {
+    scale: 102%;
+    translate: 1px 0.6em;
+}
+
+#filterNav {
+    display: flex;
+    justify-content: left;
+    background-color: darkgrey;
+    color: white;
+}
+
+#filterNav > span {
+    margin-top: 4px;
+    margin-left: 2px;
+}
+
+#filterNav>img {
+    margin-left: auto;
+}
+
+#sidenavContent {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    padding-left: 1pc;
+    padding-bottom: 7vh;
+    
+}
+
+@media screen and (max-width: 576px) {
+    #sidenavContent {
+        padding-top: 3vh;
+        justify-content: start;
+        height: 100vh;
+    }
+}
+
+@media screen and (577px <= width <= 829px) {
+    @media screen and (max-height: 670px) {
+        #sidenavContent {
+            padding-top: 3.2vh;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    @media screen and (min-height: 671px) {
+        #sidenavContent {
+            align-items: center;
+            height: max-content;
+        }
+    }
+}
+
+@media screen and (min-width: 830px) {
+    #sidenavContent {
+        padding-top: 3.6vh;
+        align-items: center;
+        justify-content: center;
+        height: max-content;
+    }
+}
+
+#list {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+#list > .listitem {
+    padding: 0%;
+}
+
+.sidenav-btn:hover {
+    scale: 1.09;
+    background-color: rgb(200, 236, 248);
+    color: whitesmoke;
+}
+
+.ligth {
+    background-color: whitesmoke;
+    color: black;
+}
+
+.dark {
+    background-color: rgb(70, 72, 73);
+    color: whitesmoke;
+}

@@ -1,25 +1,29 @@
 <!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:1368325630. -->
-<form class="example-form">
-  <legend [ngClass]="'legend'">Iniciar sesión</legend>
-  <mat-form-field [ngClass]="'example-full-width'">
-    <mat-label>Correo electrónico</mat-label>
-    <input type="email" matInput placeholder="usuario@dominio">
-  </mat-form-field>
-
-  <mat-form-field [ngClass]="'example-full-width'">
-    <mat-label>Contraseña</mat-label>
-    <input matInput [type]="hide() ? 'password' : 'text'"  placeholder="********" />
+<form ngClass="login-form" onload="refreshToken()">
+  <legend [ngClass]="'legend'" *ngIf="legendIsNecessary()">Autentícate antes de empezar</legend>
+  <!--Add buttons to initiate auth sequence and sign out-->
+  <div id="loginBtnsDiv" [ngClass]="logBtnsClasses()['signout-visible-btn'] ? 'col-reverse' :'col-normal'">
     <button
-      id="eyeBtn"
-      mat-icon-button
-      matSuffix
-      (click)="clickEvent($event)"
-      [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide()"
+      id="authorize_button"
+      [ngClass]="
+        !logBtnsClasses()['authorization-visible-btn'] ? 
+          'collapsed-btn' : 'authorization-visible-btn'
+      "
+      onclick="
+        handleAuthClick();
+      "
     >
-      <mat-icon id="eye">{{hide() ? 'visibility' : 'visibility_off'}}</mat-icon>
+      Inicio con Google
     </button>
-  </mat-form-field>
-  <a href="/#" id="forgotPassword">¿Olvidaste tu contraseña?</a>
-  <button mat-stroked-button class="submit-btn">INGRESAR</button>
+    <button
+      id="signout_button"
+      [ngClass]="
+        !logBtnsClasses()['signout-visible-btn'] ? 
+          'collapsed-btn' : 'signout-visible-btn'
+        "
+      onclick="handleSignoutClick()"
+    >
+      Cerrar sesion
+    </button>
+  </div>
 </form>

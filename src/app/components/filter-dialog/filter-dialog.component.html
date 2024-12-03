@@ -1,0 +1,38 @@
+<ul [ngClass]="'filter-ul'" (blur)="dialogRef.close()">
+    <li><h6>Filtrar</h6></li>
+    <li>
+        <mat-form-field>
+            <mat-label>Fecha</mat-label>
+            <input
+                matInput 
+                [matDatepicker]="picker"
+                (dateInput)="setFechaModel($event)"
+            />
+            <mat-hint>DD/MM/AAAA</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </li>
+    <li>
+        <mat-form-field>
+            <mat-label>Tipo</mat-label>
+            <input matInput type="text" [(ngModel)]="tipo" />
+        </mat-form-field>
+    </li>
+    <li>
+        <mat-form-field>
+            <mat-label>Placa</mat-label>
+            <input matInput type="text" [(ngModel)]="placa" />
+        </mat-form-field>
+    </li>
+    <li>
+        <button
+            type="button"
+            id="filterBtn"
+            [disabled]="(fechaIsNull(fecha()) || !(fecha()!.length>0)) && !(tipo().length>0) && !(placa().length>0)"
+            (click)="handleFilterBtn()"
+        >
+            HECHO
+        </button>
+    </li>
+</ul>

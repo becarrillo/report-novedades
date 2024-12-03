@@ -1,0 +1,50 @@
+#mainContent {
+    display: flex;
+    flex-direction: column;
+}
+
+#mainContent > .h5 {
+    margin-top: 6px;
+    margin-left: 2px;
+}
+
+.mainContentDiv {
+    display: flex;
+    flex-direction: column;
+    width: 78vw;
+    height: 82vh;
+    overflow: auto;
+    margin-bottom: 8pt;
+    padding: 2pt;
+    background-color: rgb(232, 241, 245);
+}
+
+.mainContentDiv > #novedadesTable {
+    height: 4vh;
+    overflow-x: auto;
+    width: auto;
+}
+
+.table-dark-background {
+    background-color: rgb(221, 219, 213);
+}
+
+.table-light-background {
+    background-color: white;
+}
+
+td {
+    padding: 0.5em;
+}
+
+@media screen and (max-width: 576px) {
+    mat-paginator {
+        width: 210vw;
+    }
+}
+
+@media screen and (min-width: 577px) {
+    mat-paginator {
+        width: 78vw;
+    }
+}

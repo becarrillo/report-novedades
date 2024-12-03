@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FilterPageComponent } from './filter-page.component';
+import { RecordFoldersComponent } from './record-folders.component';
 
-describe('FilterPageComponent', () => {
-  let component: FilterPageComponent;
-  let fixture: ComponentFixture<FilterPageComponent>;
+describe('RecordFoldersComponent', () => {
+  let component: RecordFoldersComponent;
+  let fixture: ComponentFixture<RecordFoldersComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FilterPageComponent]
+      imports: [RecordFoldersComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FilterPageComponent);
+    fixture = TestBed.createComponent(RecordFoldersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,70 @@
+<main id="mainContent">
+    <h5 ngClass="h5">Tabla novedades del día</h5>
+    <div [ngClass]="['mainContentDiv', 'mat-elevation-z8']" id="mainContentDiv">
+        <table
+            mat-table
+            [dataSource]="tableDataSource"
+            id="novedadesTable"
+        >
+            <!-- Position Column -->
+            <ng-container matColumnDef="posicion">
+                <th mat-header-cell *matHeaderCellDef> Posición </th>
+                <td mat-cell *matCellDef="let element"> {{element.posicion}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="placa">
+                <th mat-header-cell *matHeaderCellDef> Placa </th>
+                <td mat-cell *matCellDef="let element"> {{element.placa}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="cedulaTec1">
+                <th mat-header-cell *matHeaderCellDef> Cédula técnico 1 </th>
+                <td mat-cell *matCellDef="let element"> {{element.cedulaTec1}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="nombreTec1">
+                <th mat-header-cell *matHeaderCellDef> Nombre técnico 1 </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombreTec1}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="cedulaTec2">
+                <th mat-header-cell *matHeaderCellDef> Cédula técnico 2 </th>
+                <td mat-cell *matCellDef="let element"> {{element.cedulaTec2}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="nombreTec2">
+                <th mat-header-cell *matHeaderCellDef> Nombre técnico 2 </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombreTec2}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="tipo">
+                <th mat-header-cell *matHeaderCellDef> Tipo </th>
+                <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="horaFinDesplazamiento">
+                <th mat-header-cell *matHeaderCellDef> Fin desplazamiento </th>
+                <td mat-cell *matCellDef="let element"> {{element.horaFinDesplazamiento}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[8, 15, 20, 40, 60]" showFirstLastButtons
+            aria-label="Selecciona la página de novedades">
+        </mat-paginator>
+    </div>
+</main>
