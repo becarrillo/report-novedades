@@ -1,7 +1,6 @@
 <app-timestamp></app-timestamp>
 <main id="mainContent">
     <h5 ngClass="h5">{{title()}}: {{getData().length}}</h5>
-
     <div [ngClass]="['mainContentDiv', 'mat-elevation-z8']" id="mainContentDiv">
         @if(getData().length===0) {
             <div id="flatBtnContainer">
@@ -12,7 +11,6 @@
                 <button mat-flat-button ngClass="flat-btn" (click)="handDateOptionClick($event)">Ayer</button>
                 <button mat-flat-button ngClass="flat-btn" disabled>Hoy</button>
             </div>
-            
             <mat-divider></mat-divider>
         }
         <table mat-table [dataSource]="tableDataSourceSignal()" id="novedadesTable">

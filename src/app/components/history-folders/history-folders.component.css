@@ -1,5 +1,5 @@
 h5 {
-    margin-top: 5.8em
+    margin-top: 8rem
 }
 
 .item {
@@ -19,7 +19,8 @@ div:hover {
     justify-content: space-between;
     border-radius: 4px;
     background-color: rgb(255, 255, 255);
-    margin-top: 24px;
+    margin-left: 2rem;
+    margin-top: 18px;
     height: max-content;
     overscroll-behavior: auto;
 }

@@ -1,10 +1,18 @@
-span {
+div {
     display: flex;
-    margin-top: 4px;
     margin-bottom: 4rem;
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
-span .watch-icon {
-    margin-right: 9px;
+span {
+    display: flex;
+}
+
+.map-icon {
+    margin-left: 1rem;
+    margin-right: 6px;
+}
+
+.watch-icon {
+    margin-right: 6px;
 }

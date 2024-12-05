@@ -64,12 +64,7 @@ export class TableComponent {
   protected tableDataSourceSignal = signal(
     new MatTableDataSource<SheetData, MatPaginator>(TableComponent.data())
   );
-  
   title = signal<string>('');
-
-  logger(message : string) {
-    console.log(message);
-  }
 
   constructor() {
     let data = window.localStorage.getItem("data");
@@ -137,10 +132,10 @@ export class TableComponent {
 
           allResultsAreToday ? (
             TableComponent.data.set(todayData),
-            this.title.set("Novedades del día") 
+            this.title.set("Novedades Reportec del día") 
           ) : (
             TableComponent.data.set(dataResult),
-            this.title.set("Resultados búsqueda de novedades")
+            this.title.set("Resultados búsqueda de novedades Reportec")
           );
         }
         setTitleWithData(dataResult);

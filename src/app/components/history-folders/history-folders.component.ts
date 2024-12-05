@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { SectionNode } from '../../interfaces/section-node';
 import { SheetData } from '../../interfaces/sheet-data';
 import { SheetRowDialogComponent } from '../sheet-row-dialog/sheet-row-dialog.component';
+import { TimestampComponent } from '../timestamp/timestamp.component';
 
 /** Component for news history of vehicles into Reportec SpreadSheet */
 @Component({
@@ -20,7 +21,8 @@ import { SheetRowDialogComponent } from '../sheet-row-dialog/sheet-row-dialog.co
     MatButtonModule,
     MatIconModule,
     MatTreeModule,
-    MatTooltipModule
+    MatTooltipModule,
+    TimestampComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './history-folders.component.html',
