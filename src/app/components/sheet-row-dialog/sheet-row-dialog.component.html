@@ -1,40 +1,52 @@
 <h2 mat-dialog-title>Datos del vehículo con su novedad</h2>
 <mat-dialog-content id="sheetDialogContent">
     <mat-list id="sheetDialogList">
-        <mat-list-item ngClass="sheet-dialog-item"><span id="span">Placa:</span> {{data.placa}}</mat-list-item>
+        <mat-list-item ngClass="sheet-dialog-item">
+            <span>Placa:</span> {{data.placa}}
+        </mat-list-item>
         <mat-divider ngClass="divider"></mat-divider>
         @if (data.nombreTec1!=='' && data.nombreTec1!=='SIN TECNICO') {
             <mat-list-item ngClass="sheet-dialog-item">
-                <span id="span">Técnico # 1:</span> 
+                <span>Técnico # 1:</span> 
                 {{data.nombreTec1}} - C.C. {{data.cedulaTec1}}
             </mat-list-item>
         }
         <mat-divider ngClass="divider"></mat-divider>
-        @if (data.nombreTec2!=='' && data.nombreTec2!=='SIN TECNICO') {
+        @if (data.cedulaTec2!=='1' && data.nombreTec2!=='' && data.nombreTec2!=='SIN TECNICO') {
             <mat-list-item ngClass="sheet-dialog-item">
-                <span id="span">Técnico # 2:</span> 
+                <span>Técnico # 2:</span> 
                 {{data.nombreTec2}} - C.C. {{data.cedulaTec2}}
             </mat-list-item>
         }
         <mat-divider ngClass="divider"></mat-divider>
-        <mat-list-item ngClass="sheet-dialog-item"><span id="span">Tipo / Estado:</span> {{data.tipo}}</mat-list-item>
+        <mat-list-item ngClass="sheet-dialog-item"><span>Tipo / Estado:</span> {{data.tipo}}</mat-list-item>
         @if (data.direccionInicial!==undefined && data.direccionInicial.length>0) {
             <mat-divider ngClass="divider"></mat-divider>
-            <mat-list-item ngClass="sheet-dialog-item"><span id="span">Dirección inicial (GPS): </span> {{data.direccionInicial}}</mat-list-item>
+            <mat-list-item ngClass="sheet-dialog-item">
+                <span>Dirección inicial (GPS): </span> {{data.direccionInicial}}
+            </mat-list-item>
         }
         @if (data.direccionFinal!==undefined && data.direccionFinal.length>0) {
             <mat-divider ngClass="divider"></mat-divider>
-            <mat-list-item ngClass="sheet-dialog-item"><span id="span">Dirección final (GPS): </span> {{data.direccionFinal}}</mat-list-item>
+            <mat-list-item ngClass="sheet-dialog-item">
+                <span>Dirección final (GPS): </span> {{data.direccionFinal}}
+            </mat-list-item>
         }
         @if (data.direccionReportec!==undefined && data.direccionReportec.length>0) {
             <mat-divider ngClass="divider"></mat-divider>
-            <mat-list-item ngClass="sheet-dialog-item"><span id="span">Dirección en Reportec: </span> {{data.direccionReportec}}</mat-list-item>
+            <mat-list-item ngClass="sheet-dialog-item">
+                <span>Dirección en Reportec: </span> {{data.direccionReportec}}
+            </mat-list-item>
         }
         @if (data.tiempoEstacionamiento!==undefined && data.tiempoEstacionamiento.length>0) {
             <mat-divider ngClass="divider"></mat-divider>
-            <mat-list-item ngClass="sheet-dialog-item"><span id="span">Tiempo de estacionamiento: </span> {{data.tiempoEstacionamiento}}</mat-list-item>
+            <mat-list-item ngClass="sheet-dialog-item">
+                <span>Tiempo de estacionamiento: </span> {{data.tiempoEstacionamiento}}
+            </mat-list-item>
         }
         <mat-divider ngClass="divider"></mat-divider>
-        <mat-list-item ngClass="sheet-dialog-item"><span id="span">Observaciones:</span> {{data.observaciones}}</mat-list-item>
+        <mat-list-item ngClass="sheet-dialog-item">
+            <span>Observaciones:</span> {{data.observaciones}}
+        </mat-list-item>
     </mat-list>      
 </mat-dialog-content>

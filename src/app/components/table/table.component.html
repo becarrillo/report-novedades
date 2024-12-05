@@ -1,11 +1,21 @@
+<app-timestamp></app-timestamp>
 <main id="mainContent">
-    <h5 ngClass="h5">{{title()}}</h5>
+    <h5 ngClass="h5">{{title()}}: {{getData().length}}</h5>
+
     <div [ngClass]="['mainContentDiv', 'mat-elevation-z8']" id="mainContentDiv">
-        <table
-            mat-table
-            [dataSource]="tableDataSourceSignal()"
-            id="novedadesTable"
-        >
+        @if(getData().length===0) {
+            <div id="flatBtnContainer">
+                <span id="flatBtnContainerText">Opciones: </span>
+                <button mat-flat-button ngClass="flat-btn" (click)="handDateOptionClick($event)">Hace un mes</button>
+                <button mat-flat-button ngClass="flat-btn" (click)="handDateOptionClick($event)">Hace una semana</button>
+                <button mat-flat-button ngClass="flat-btn" (click)="handDateOptionClick($event)">Hace dos días</button>
+                <button mat-flat-button ngClass="flat-btn" (click)="handDateOptionClick($event)">Ayer</button>
+                <button mat-flat-button ngClass="flat-btn" disabled>Hoy</button>
+            </div>
+            
+            <mat-divider></mat-divider>
+        }
+        <table mat-table [dataSource]="tableDataSourceSignal()" id="novedadesTable">
             <!-- Position Column -->
             <ng-container matColumnDef="posicion">
                 <th mat-header-cell *matHeaderCellDef> Posición </th>
@@ -64,12 +74,9 @@
             <ng-container matColumnDef="infoButton">
                 <th mat-header-cell *matHeaderCellDef> Acción </th>
                 <td mat-cell *matCellDef="let element">
-                    <button 
-                        mat-button 
-                        (click)="
-                            openDialog(element.fecha, element.placa, element.tipo)
-                        "
-                    >
+                    <button mat-button (click)="
+                                openDialog(element.fecha, element.placa, element.tipo)
+                            ">
                         Ver info
                     </button>
                 </td>
@@ -78,8 +85,11 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons
-            aria-label="Selecciona la página de novedades" id="paginator">
+        <mat-paginator
+            [pageSizeOptions]="pageSizeOptions" 
+            showFirstLastButtons
+            aria-label="Selecciona la página de novedades" id="paginator"
+        >
         </mat-paginator>
     </div>
 </main>

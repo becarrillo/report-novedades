@@ -56,10 +56,10 @@
 
 .novedades-container>.novedades-sidenav {
     position: fixed;
-    top: 10rem;
+    top: 7rem;
     align-content: center;
     width: 56px;
-    height: 49vh;
+    height: 62vh;
     background-color: white;
     z-index: 2;
     transition-duration: 0.4s;
@@ -79,7 +79,9 @@
     width: 100vw;
     height: auto;
     padding-left: 1pc;
-    padding-bottom: 9vh;
+    padding-bottom: 2pc;
+    overflow-y: auto;
+    padding-bottom: 12vh;
 }
 
 @media screen and (max-width: 576px) {

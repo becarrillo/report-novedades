@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { SectionNode } from '../../interfaces/section-node';
 import { MatDialog } from '@angular/material/dialog';
 import { SheetRowDialogComponent } from '../sheet-row-dialog/sheet-row-dialog.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { TimestampComponent } from '../timestamp/timestamp.component';
 
 /** Table for Reportec vehicles news filter results */
 @Component({
@@ -24,6 +26,7 @@ import { SheetRowDialogComponent } from '../sheet-row-dialog/sheet-row-dialog.co
     CommonModule,
     RouterModule,
     MatButtonModule,
+    MatDividerModule,
     MatListModule,
     MatMenuModule,
     MatIconModule,
@@ -32,7 +35,8 @@ import { SheetRowDialogComponent } from '../sheet-row-dialog/sheet-row-dialog.co
     FormsModule,
     MatPaginatorModule,
     MatTableModule,
-    MatTooltipModule
+    MatTooltipModule,
+    TimestampComponent
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
@@ -54,85 +58,107 @@ export class TableComponent {
   protected dialog = inject(MatDialog);
   protected static readonly data = signal<SheetData[]>([]);
   pageSizeOptions: number[] = [8, 15, 20, 40, 60];
+  static params: Params = {};
   protected router = inject(Router);
   protected sectionNodeData = signal<SectionNode[]>([]);
   protected tableDataSourceSignal = signal(
     new MatTableDataSource<SheetData, MatPaginator>(TableComponent.data())
   );
+  
   title = signal<string>('');
+
+  logger(message : string) {
+    console.log(message);
+  }
 
   constructor() {
     let data = window.localStorage.getItem("data");
     if (data !== null && data.length > 0) {
-      let params: Params = {};
       let paramsHaveKeyValue: boolean;
       paramsHaveKeyValue = false;
-      let parsedSheetData = (parseData() as SheetData[]);
-      TableComponent.setData(parseData());
+      let parsedSheetData = (parseData(data) as SheetData[]);
+      TableComponent.setData(parsedSheetData);
 
-      function parseData() {
+      /** Converts stringified data into JSON object (It is made for receive data from sheet) */
+      function parseData(data : string | null) {
         if (data !== null)
-          return JSON.parse(data)
+          return JSON.parse(data);
       }
 
-
+      let dataResult! : SheetData[];
+      /** Drive to data to be filtered, then it gets processed data to be shown into table */
+      let setDataResult = (sheetData : SheetData[]) => {
+        dataResult = sheetData;
+        if (paramsHaveKeyValue) 
+          dataResult = this.filterData(sheetData, TableComponent.params);
+      }
+      setDataResult(parsedSheetData);
+      
       // To get params values coming from filter dialog form
       this.activatedRoute.queryParams.subscribe(query => {
         const assignParamIfExists = (name: string) => {
           if (query[name] !== undefined) {
-            params[name] = query[name];
+            TableComponent.params[name] = query[name];
             paramsHaveKeyValue = true;
           }
         }
-
-        const setResultsView = () => {
-          data = window.localStorage.getItem("data");
-          assignParamIfExists('fecha');
-          assignParamIfExists('placa');
-          assignParamIfExists('tipo');
-          let dataResult = this.filterData(parsedSheetData, params);
-          if (paramsHaveKeyValue) {
-            dataResult = this.filterData(dataResult, params);
+        assignParamIfExists('fecha');
+        assignParamIfExists('placa');
+        assignParamIfExists('tipo');
+        
+        data = window.localStorage.getItem("data");
+        parsedSheetData = (parseData(data) as SheetData[]);
+        setDataResult(parsedSheetData);
+        
+        let allResultsAreToday! : boolean;
+        const setTitleWithData = (dataResult : SheetData[]) => {
+          let split = TableComponent.getDateNow().toLocaleString('es-CO').substring(0, 9).split("/");
+          for (let i = 0; i < split.length; i++) {
+            if (split.at(i) !== undefined && split.at(i)!.length === 1)
+              split.splice(i, 1, "0".concat(split.at(i) as string));
           }
 
-          let allResultsAreToday = true;
-          if (dataResult.length >= 1 && params['placa'] === undefined && params['tipo'] === undefined) {
-            let split = TableComponent.getDateNow().toLocaleString('es-CO').substring(0, 9).split("/");
-            for (let i = 0; i < split.length; i++) {
-              if (split.at(i) !== undefined && split.at(i)!.length === 1)
-                split.splice(i, 1, "0".concat(split.at(i) as string));
-            }
-
-            const tableViewData : SheetData[] = [];
+          const todayData : SheetData[] = [];
+          if (dataResult.length >= 1 && TableComponent.params['placa'] === undefined && TableComponent.params['tipo'] === undefined) {
             for (var r of dataResult) {
               if (r.fecha !== split.join("/")) {
                 allResultsAreToday = false;
                 break;
-              } else tableViewData.push(r); 
+              } else {
+                todayData.push(r);
+                allResultsAreToday = true;
+              }
             }
-            TableComponent.data.set(tableViewData);
-
-            if (allResultsAreToday)
-              this.title.set("Tabla novedades del día");
           } else {
-            allResultsAreToday = false;
-            this.title.set("Resultados búsqueda de novedades");
+            TableComponent.params['fecha']===split.join("/") ? 
+              allResultsAreToday = true 
+            : allResultsAreToday = false;
           }
-          params['fecha'] = undefined;
-          params['placa'] = undefined;
-          params['tipo'] = undefined;
-        }
-        setInterval(() => {    // Each 10 secs send a request to get the current data
-          setResultsView();
-        }, 10000);
 
-        setResultsView();
+          allResultsAreToday ? (
+            TableComponent.data.set(todayData),
+            this.title.set("Novedades del día") 
+          ) : (
+            TableComponent.data.set(dataResult),
+            this.title.set("Resultados búsqueda de novedades")
+          );
+        }
+        setTitleWithData(dataResult);
+        if (this.getData().length>=1) this.paginator.firstPage();
+        
+        setInterval(() => {    // Each 15 secs send a request to get the current data
+          data = window.localStorage.getItem("data");
+          parsedSheetData = (parseData(data) as SheetData[]);
+          setDataResult(parsedSheetData);
+          setTitleWithData(dataResult);
+        }, 15000);
       });
     }
 
     effect(() => {  // To look and to manage data signal changes updating the view data into table
-      this.tableDataSourceSignal.set(new MatTableDataSource<SheetData, MatPaginator>(TableComponent.data()));
-      this.paginator.firstPage();
+      this.tableDataSourceSignal.set(
+        new MatTableDataSource<SheetData, MatPaginator>(TableComponent.data())
+      );
       this.tableDataSourceSignal().paginator = this.paginator;
     }, {
       allowSignalWrites: true
@@ -149,7 +175,9 @@ export class TableComponent {
     this.paginator._intl.lastPageLabel = 'Última página';
     this.paginator._changePageSize(8);
     this.paginator._intl.getRangeLabel = (pageIndex: number, pageSize: number, length: number) => {
-      if (length === 0) return '0';
+      if (length === 0) {
+        return '0';
+      }
       return (
         length % pageSize !== 0 && length < pageSize * (pageIndex + 1) ?
           `${pageSize * pageIndex + 1} a ${length} de ${length}`
@@ -158,7 +186,7 @@ export class TableComponent {
     }
   }
 
-  /** manage sheet data filter with params from filter dialog inputs data */
+  /** Manage sheet data filter with params from filter dialog inputs data */
   filterData(
     sheetData: SheetData[],
     params: Params
@@ -231,6 +259,45 @@ export class TableComponent {
         }
       });
     }
+  }
+
+  /** It hands the date option to set param buttons getting its Date object
+   * processing to a formatted string it and navigating into table to the 
+   * selected date by click event
+   */
+  handDateOptionClick(ev : Event) {
+    const option = (ev.currentTarget as HTMLButtonElement).textContent;
+    console.log(option);
+    let date : Date = new Date();
+    switch (option) {
+      case "Ayer":
+        date.setDate(new Date().getDate() - 1);
+        break;
+        case "Hace dos días":
+          date.setDate(new Date().getDate() - 2);
+          break;
+      case "Hace una semana":
+        date.setDate(new Date().getDate() - 7);
+        break;
+      case "Hace un mes":
+        date.setDate(new Date().getDate() - 30);
+    }
+    
+    const dateArr = [
+      date.getDate().toString(),
+      (date.getMonth()+1).toString(),
+      date.getFullYear().toString()
+    ];
+    for (let i = 0; i < dateArr.length; i++) {
+      if (dateArr.at(i) !== undefined && dateArr.at(i)!.length === 1)
+        dateArr.splice(i, 1, "0".concat(dateArr.at(i) as string));
+    }
+
+    TableComponent.params['fecha'] = dateArr.join("/");
+    this.router.navigate(['dashboard', 'tabla'], {
+      queryParams: TableComponent.params,
+      queryParamsHandling: 'merge'
+    });
   }
 
   setData(data: SheetData[]) {

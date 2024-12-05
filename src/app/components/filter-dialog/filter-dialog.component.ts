@@ -74,6 +74,11 @@ export class FilterDialogComponent {
   }
 
   handleFilterBtn() {
+    // It ensure no merge of query params among requests to table component
+    TableComponent.params['fecha'] = undefined;
+    TableComponent.params['placa'] = undefined;
+    TableComponent.params['tipo'] = undefined;
+
     let queryParams : Params = {};
     if (!this.fechaIsNull(this.fecha()) && this.fecha()!==undefined && this.fecha()!.length>0)
       queryParams['fecha'] = encodeURI(this.fecha() as string);

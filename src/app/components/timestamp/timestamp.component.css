@@ -1,0 +1,10 @@
+span {
+    display: flex;
+    margin-top: 4px;
+    margin-bottom: 4rem;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+span .watch-icon {
+    margin-right: 9px;
+}

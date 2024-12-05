@@ -354,10 +354,6 @@ export class HistoryFoldersComponent {
         return obj.level>=level
       });
       if (filter.length>0) {
-        /**if (foundNodeByLevel!==undefined) {
-          this.treeLevelsArray.splice(this.treeLevelsArray.indexOf(foundNodeByLevel), 1);
-        } **/
-
         filter.forEach(obj => {
           if (obj.level===level) {
             obj.sectionName!==treeNode.name ?

@@ -85,6 +85,11 @@ export class AppComponent {
   }
 
   updateDataToToday(): void {
+    // It ensure no merge of query params among requests to table component
+    TableComponent.params['fecha'] = undefined;
+    TableComponent.params['placa'] = undefined;
+    TableComponent.params['tipo'] = undefined;
+
     const dateNowArr = TableComponent
       .getDateNow()
       .toLocaleString('es-CO')

@@ -7,6 +7,28 @@
 #mainContent > .h5 {
     margin-top: 6px;
     margin-left: 2px;
+    font-weight: 500;
+}
+
+#mainContent #flatBtnContainer {
+    display: flex;
+    justify-content: flex-end;
+    padding-left: 7px;
+    padding-top: 4px;
+}
+
+#mainContentDiv #flatBtnContainerText {
+    margin-top: 6px;
+}
+
+#mainContent .flat-btn {
+    background-color: rgb(83, 148, 139);
+    font-style: oblique;
+    font-size: small;
+    margin-left: 2rem;
+    padding-left: 4px;
+    padding-right: 4px;
+    height: 2pc;
 }
 
 .mainContentDiv {
@@ -14,13 +36,11 @@
     flex-direction: column;
     row-gap: 0.4em;
     width: 81vw;
-    height: 82vh;
+    height: 72vh;
     overflow: auto;
-    margin-bottom: 4.6pc;
-    padding-top: 1.5pt;
+    margin-bottom: 4pc;
     padding-left: 1.5pt;
     padding-right: 1.5pt;
-    background-color: gray;
 }
 
 .mainContentDiv > #novedadesTable {
@@ -32,10 +52,12 @@
     position: -webkit-sticky;
     border-radius: 4px;
     outline: 1px grey solid;
-    background-color: rgb(232, 231, 236);
+    background-color: white;
     font-weight: 400;
     margin-left: auto;
+    margin-top: auto;
     margin-right: auto;
+    margin-bottom: 10px
 }
 
 .table-dark-background {

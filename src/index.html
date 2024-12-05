@@ -59,11 +59,11 @@
         scope: SCOPES,
         callback: '', // defined later
       });
-      setInterval(() => { // Each 10 secs send a request to get the current data
+      setInterval(() => { // Each 15 secs it sends a request to get the current data
         listNovedades().then(n => {
           window.localStorage.setItem('data', JSON.stringify(n));
         })
-      }, 10000);
+      }, 15000);
     }
 
     /**
