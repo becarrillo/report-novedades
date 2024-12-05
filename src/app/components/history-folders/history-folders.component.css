@@ -1,9 +1,5 @@
 h5 {
-    margin-top: 0.6em
-}
-
-.expansion-panel {
-    height: 16vh;
+    margin-top: 5.8em
 }
 
 .item {
@@ -25,8 +21,18 @@ div:hover {
     background-color: rgb(255, 255, 255);
     margin-top: 24px;
     height: max-content;
-    overflow-y: auto;
     overscroll-behavior: auto;
+}
+
+.ml-a {
+    margin-left: auto;
+    padding-top: 0.275rem;
+    padding-bottom: 0.275rem;
+    width: 25vw;
+}
+
+.ml-a:hover {
+    cursor: pointer;
 }
 
 .tree-node {

@@ -1,38 +1,51 @@
-<ul [ngClass]="'filter-ul'" (blur)="dialogRef.close()">
-    <li><h6>Filtrar</h6></li>
-    <li>
-        <mat-form-field>
-            <mat-label>Fecha</mat-label>
-            <input
-                matInput 
-                [matDatepicker]="picker"
-                (dateInput)="setFechaModel($event)"
-            />
-            <mat-hint>DD/MM/AAAA</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-    </li>
-    <li>
-        <mat-form-field>
-            <mat-label>Tipo</mat-label>
-            <input matInput type="text" [(ngModel)]="tipo" />
-        </mat-form-field>
-    </li>
-    <li>
-        <mat-form-field>
-            <mat-label>Placa</mat-label>
-            <input matInput type="text" [(ngModel)]="placa" />
-        </mat-form-field>
-    </li>
-    <li>
-        <button
-            type="button"
-            id="filterBtn"
-            [disabled]="(fechaIsNull(fecha()) || !(fecha()!.length>0)) && !(tipo().length>0) && !(placa().length>0)"
-            (click)="handleFilterBtn()"
-        >
-            HECHO
-        </button>
-    </li>
-</ul>
+<div [ngClass]="'filter-form'" (blur)="dialogRef.close()">
+    <legend>Filtrar</legend>
+    <mat-form-field>
+        <mat-label>Placa</mat-label>
+        <mat-select [(ngModel)]="placa">
+            <mat-option value=""></mat-option>
+            @for (p of placaOptionsSignal(); track p) {
+                @if (p!=='') {
+                    <mat-option [value]="p">{{p}}</mat-option>
+                }
+            }
+        </mat-select>
+    
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Fecha</mat-label>
+        <input
+            matInput 
+            [matDatepicker]="picker"
+            (dateInput)="setFecha($event)"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Tipo</mat-label>
+        <mat-select [(ngModel)]="tipo">
+            <mat-option value=""></mat-option>
+            @for (t of tipoOptionsSignal(); track t) {
+                @if (t!=='') {
+                    <mat-option [value]="t">{{t}}</mat-option>
+                }
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <button
+        mat-button 
+        type="button"
+        id="filterBtn"
+        [disabled]="
+            fechaIsNull(fecha()) || placa()===null || tipo()===null || 
+            (fecha()!.length===0 && placa()!.length===0 && tipo()!.length===0)
+        "
+        (click)="handleFilterBtn()"
+    >
+        HECHO
+    </button>
+</div>

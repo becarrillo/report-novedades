@@ -1,19 +1,14 @@
 .login-form {
     display: flex;
     flex-direction: column;
+    row-gap: 2rem;
     align-items: center;
     justify-self: center;
     padding-left: 2.5rem;
     padding-right: 2.5rem;
-    padding-top: 14pc;
+    padding-top: 1pc;
     height: 45vh;
     width: 78%;
-    background:transparent;
-}
-
-.login-form > .legend {
-    margin-bottom: 6pt;
-    font-size: small;
 }
 
 .login-form > .col-normal {
@@ -69,4 +64,12 @@
 .login-form >.example-full-width {
     position: relative;
     width: 14em;
+}
+
+#loginTitle {
+    display: grid;
+    justify-content: center;
+    margin-top: 5em;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }

@@ -1,6 +1,6 @@
 #filterBtn {
-    padding-top: 1.4789em;
-    padding-bottom: 1.4789em;
+    padding-top: 1.5789em;
+    padding-bottom: 1.5789em;
     padding-left: 2.1em;
     padding-right: 2.1em;
     border: none;
@@ -22,20 +22,19 @@
 }
 
 @media screen and (max-width: 829px) {
-    .filter-ul li:last-child {
-        margin-left: auto;
-        margin-right: 1.7236rem;
-    }
-
-    .filter-ul {
+    .filter-form {
         position: relative;
         display: grid;
         grid-template-rows: 1fr 1fr 1fr 1fr;
+        padding-left: 15px;
+        padding-top: 18px;
+        padding-right: 15px;
+        padding-bottom: 21px;
     }
 }
 
 @media screen and (min-width: 830px) {
-    .filter-ul {
+    .filter-form {
         position: fixed;
         display: flex;
         justify-content: space-around;
@@ -48,7 +47,7 @@
     }
 }
 
-.filter-ul > li {
+.filter-form > li {
     list-style: none;
 }
 

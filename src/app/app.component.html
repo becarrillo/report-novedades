@@ -1,104 +1,109 @@
 <mat-sidenav-container [ngClass]="['novedades-container', theme()]">
-    <mat-sidenav
-        mode="side"
-        ngClass="novedades-sidenav"
-        [opened]="currentNavigationIsNotLogin()"
-    >
-        <mat-list role="list" id="list">
-            <mat-list-item role="listitem" ngClass="listitem">
-                <button
-                    mat-fab
-                    matTooltip="Filtrar novedad(es)"
-                    ngClass="sidenav-btn"
-                    aria-label="Example icon button with a delete icon"
-                    [disabled]="getCurrentNavigation()==='/login'"
-                    (mousedown)="openFilterDialog()"
-                >
-                    <mat-icon fontIcon="filter_list"></mat-icon>
-                </button>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item role="listitem" ngClass="listitem">
-                <button
-                    mat-fab
-                    matTooltip="Refrescar"
-                    ngClass="sidenav-btn"
-                    aria-label="Icon button with a add icon"
-                    [disabled]="
-                        getCurrentNavigation()==='/login'
-                    "
-                    onmousedown="
-                        listNovedades()
-                            .then(d => window.localStorage.setItem('data', JSON.stringify(d)));
-                        window.location.reload();
-                    "
-                >
-                    <mat-icon fontIcon="update"></mat-icon>
-                </button>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item role="listitem" ngClass="listitem">
-                <button
-                    mat-fab
-                    matTooltip="Novedades hoy"
-                    ngClass="sidenav-btn"
-                    aria-label="Icon button with a logout icon"
-                    [disabled]="
-                        getCurrentNavigation()==='/dashboard/novedades/hoy' || 
-                        getCurrentNavigation()==='/login'
-                    "
-                    (mousedown)="
-                        updateDataToToday()
-                    "
-                >
-                    <mat-icon fontIcon="today"></mat-icon>
-                </button>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item role="listitem" ngClass="listitem">
-                <button
-                    mat-fab
-                    matTooltip="Historial de novedades"
-                    ngClass="sidenav-btn"
-                    aria-label="Icon button with a logout icon"
-                    [disabled]="
-                        getCurrentNavigation()==='/dashboard/novedades' || 
-                        getCurrentNavigation()==='/login'
-                    "
-                    routerLink="/dashboard/novedades"
-                >
-                    <mat-icon fontIcon="folder"></mat-icon>
-                </button>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item role="listitem" ngClass="listitem">
-                <button
-                    mat-fab
-                    matTooltip="Cambiar tema"
-                    ngClass="sidenav-btn"
-                    aria-label="Icon button with a logout icon"
-                    [disabled]="getCurrentNavigation()==='/login'"
-                    (mousedown)="setTheme()"
-                >
-                    <mat-icon fontIcon="brightness_6"></mat-icon>
-                </button>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item role="listitem" ngClass="listitem">
-                <button
-                    mat-fab
-                    matTooltip="Cerrar sesión"
-                    ngClass="sidenav-btn"
-                    aria-label="Icon button with a logout icon"
-                    [disabled]="getCurrentNavigation()==='/login'"
-                    onclick="handleSignoutClick()"
-                >
-                    <mat-icon fontIcon="logout"></mat-icon>
-                </button>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-        </mat-list>
-    </mat-sidenav>
+    @if(currentNavigationIsNotLogin()) {
+        <mat-sidenav
+            mode="side"
+            ngClass="novedades-sidenav"
+            [opened]="currentNavigationIsNotLogin()"
+        >
+            <mat-list role="list" id="list">
+                <mat-list-item role="listitem" ngClass="listitem">
+                    <button
+                        mat-fab
+                        matTooltip="Filtrar novedad(es)"
+                        ngClass="sidenav-btn"
+                        aria-label="Icon button with a filter icon"
+                        [disabled]="getCurrentNavigation()==='/login'"
+                        (mousedown)="openFilterDialog()"
+                    >
+                        <mat-icon fontIcon="filter_list"></mat-icon>
+                    </button>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item role="listitem" ngClass="listitem">
+                    <button
+                        mat-fab
+                        matTooltip="Refrescar"
+                        ngClass="sidenav-btn"
+                        aria-label="Icon button with a add icon"
+                        [disabled]="
+                            getCurrentNavigation()==='/login'
+                        "
+                        onmousedown="
+                            listNovedades()
+                                .then(d => {
+                                    window.localStorage.setItem('data', JSON.stringify(d));
+                                    window.location.reload();
+                                });
+                        "
+                    >
+                        <mat-icon fontIcon="update"></mat-icon>
+                    </button>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item role="listitem" ngClass="listitem">
+                    <button
+                        mat-fab
+                        matTooltip="Novedades hoy"
+                        ngClass="sidenav-btn"
+                        aria-label="Icon button with a today icon"
+                        [disabled]="
+                            getCurrentNavigation()==='/dashboard/tabla/hoy' || 
+                            getCurrentNavigation()==='/login'
+                        "
+                        (mousedown)="
+                            updateDataToToday()
+                        "
+                    >
+                        <mat-icon fontIcon="today"></mat-icon>
+                    </button>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item role="listitem" ngClass="listitem">
+                    <button
+                        mat-fab
+                        matTooltip="Historial de novedades"
+                        ngClass="sidenav-btn"
+                        aria-label="Icon button with a logout icon"
+                        [disabled]="
+                            getCurrentNavigation()==='/dashboard/historial' || 
+                            getCurrentNavigation()==='/login'
+                        "
+                        routerLink="/dashboard/historial"
+                    >
+                        <mat-icon fontIcon="folder"></mat-icon>
+                    </button>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item role="listitem" ngClass="listitem">
+                    <button
+                        mat-fab
+                        matTooltip="Cambiar tema"
+                        ngClass="sidenav-btn"
+                        aria-label="Icon button with a logout icon"
+                        [disabled]="getCurrentNavigation()==='/login'"
+                        (mousedown)="setTheme()"
+                    >
+                        <mat-icon fontIcon="brightness_6"></mat-icon>
+                    </button>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item role="listitem" ngClass="listitem">
+                    <button
+                        mat-fab
+                        matTooltip="Cerrar sesión"
+                        ngClass="sidenav-btn"
+                        aria-label="Icon button with a logout icon"
+                        [disabled]="getCurrentNavigation()==='/login'"
+                        onclick="handleSignoutClick()"
+                    >
+                        <mat-icon fontIcon="logout"></mat-icon>
+                    </button>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+            </mat-list>
+        </mat-sidenav>
+    }
+    
 
     <mat-sidenav-content id="sidenavContent">
         <router-outlet />

@@ -1,0 +1,29 @@
+h2 {
+    align-self: center;
+}
+
+#sheetDialogContent {
+    width: max-content;
+    height: max-content;
+}
+
+.sheet-dialog-item {
+    display: inline;
+    padding-top: 1.175em;
+}
+
+.sheet-dialog-item:hover {
+    cursor: text;
+}
+
+#sheetDialogList {
+    border-radius: 2px;
+    background-color: rgb(247, 243, 237);
+    column-gap: 0.2em;
+}
+
+#span {
+    display: inline;
+    font-weight: bold;
+    margin-top: 0.75rem;
+}

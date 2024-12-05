@@ -5,7 +5,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    overflow-y: auto;
+    overflow: auto;
     background: #eee;
 }
 
@@ -56,11 +56,12 @@
 
 .novedades-container>.novedades-sidenav {
     position: fixed;
-    top: 2.8em;
+    top: 10rem;
+    align-content: center;
     width: 56px;
-    height: 80vh;
+    height: 49vh;
     background-color: white;
-    z-index: 1;
+    z-index: 2;
     transition-duration: 0.4s;
     transition-timing-function: ease-in;
     transition-property: scale, translate;
@@ -72,29 +73,13 @@
     translate: 1px 0.6em;
 }
 
-#filterNav {
-    display: flex;
-    justify-content: left;
-    background-color: darkgrey;
-    color: white;
-}
-
-#filterNav > span {
-    margin-top: 4px;
-    margin-left: 2px;
-}
-
-#filterNav>img {
-    margin-left: auto;
-}
-
 #sidenavContent {
     display: flex;
     flex-direction: column;
     width: 100vw;
+    height: auto;
     padding-left: 1pc;
-    padding-bottom: 7vh;
-    
+    padding-bottom: 9vh;
 }
 
 @media screen and (max-width: 576px) {
@@ -102,6 +87,7 @@
         padding-top: 3vh;
         justify-content: start;
         height: 100vh;
+        overflow-x: auto;
     }
 }
 

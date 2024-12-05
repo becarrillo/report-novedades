@@ -2,7 +2,11 @@ import { Routes } from '@angular/router';
 import { authorizationGuard } from './authorization.guard';
 
 export const routes: Routes = [
-    {path: '', redirectTo: 'login', pathMatch: 'full'},
+    {
+        path: '',
+        redirectTo: window.localStorage.getItem('token')?.length!==undefined && window.localStorage.getItem('token')!.length>=1 ? 'dashboard' : 'login',
+        pathMatch: 'full'
+    },
     {
         path: 'dashboard',
         loadChildren: () => import('./modules/dashboard/dashboard.module')

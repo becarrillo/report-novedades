@@ -4,23 +4,35 @@
   <!-- This is the tree node template for leaf nodes -->
   <mat-tree-node
     *matTreeNodeDef="let node" 
-    matTreeNodePadding matTreeNodeToggle 
+    matTreeNodePadding 
+    matTreeNodeToggle 
     [cdkTreeNodeTypeaheadLabel]="node.name"
     [ngClass]="'tree-node'"
   >
-    <button mat-icon-button disabled></button>
-    <a href="/#" target="_blank" matTooltip="Abrir información">{{node.name}}</a>
+    <button
+      ngClass="node-name ml-a"
+      matTooltip="Abrir información completa"
+      (click)="manageTreeChildButton(tree, node, $event)"
+      *ngIf="node.name.length>=1"
+    >
+      {{node.name}}
+    </button>
   </mat-tree-node>
   <!-- This is the tree node template for expandable nodes -->
-  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding matTreeNodeToggle
-                 [cdkTreeNodeTypeaheadLabel]="node.name" [ngClass]="'tree-node'">
+  <mat-tree-node
+    *matTreeNodeDef="let node;when: hasChild" 
+    matTreeNodePadding 
+    matTreeNodeToggle
+    [cdkTreeNodeTypeaheadLabel]="node.name" [ngClass]="'tree-node'"
+    (expandedChange)="onExpandedChange(tree, node, $event)"
+  >
     <button mat-icon-button matTreeNodeToggle
             [attr.aria-label]="'Toggle ' + node.name" ngClass="mat-folder-icon-btn">
       <mat-icon ngClass="mat-icon-rtl-mirror">
         {{tree.isExpanded(node) ? 'folder_open' : 'folder'}}
       </mat-icon>
     </button>
-    {{node.name}}
+    <span [ngClass]="tree.isExpanded(node) ? 'node-name' : ''" >{{node.name}}</span>
     <mat-icon ngClass="mat-icon-rtl-mirror smargin-l">
       {{tree.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
     </mat-icon>

@@ -1,9 +1,9 @@
 <main id="mainContent">
-    <h5 ngClass="h5">Tabla novedades del día</h5>
+    <h5 ngClass="h5">{{title()}}</h5>
     <div [ngClass]="['mainContentDiv', 'mat-elevation-z8']" id="mainContentDiv">
         <table
             mat-table
-            [dataSource]="tableDataSource"
+            [dataSource]="tableDataSourceSignal()"
             id="novedadesTable"
         >
             <!-- Position Column -->
@@ -60,11 +60,26 @@
                 <td mat-cell *matCellDef="let element"> {{element.horaFinDesplazamiento}}</td>
             </ng-container>
 
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="infoButton">
+                <th mat-header-cell *matHeaderCellDef> Acción </th>
+                <td mat-cell *matCellDef="let element">
+                    <button 
+                        mat-button 
+                        (click)="
+                            openDialog(element.fecha, element.placa, element.tipo)
+                        "
+                    >
+                        Ver info
+                    </button>
+                </td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <mat-paginator [pageSizeOptions]="[8, 15, 20, 40, 60]" showFirstLastButtons
-            aria-label="Selecciona la página de novedades">
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons
+            aria-label="Selecciona la página de novedades" id="paginator">
         </mat-paginator>
     </div>
 </main>

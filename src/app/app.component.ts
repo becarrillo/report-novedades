@@ -7,11 +7,10 @@ import { MatList, MatListItem, MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Params, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { TableComponent } from './components/table/table.component';
 import { FilterDialogComponent } from './components/filter-dialog/filter-dialog.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Dialog, DialogRef } from '@angular/cdk/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +35,6 @@ import { Dialog, DialogRef } from '@angular/cdk/dialog';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'myapp';
   theme = signal<string>('');
   isNavigatedToday = signal<boolean>(false);
   protected router = inject(Router);
@@ -87,10 +85,26 @@ export class AppComponent {
   }
 
   updateDataToToday(): void {
-    TableComponent.updateDataToToday();
+    const dateNowArr = TableComponent
+      .getDateNow()
+      .toLocaleString('es-CO')
+      .substring(0, 9);
+    let split = dateNowArr.split("/");
+    for (let i=0; i<split.length; i++) {
+      if (split.at(i)!==undefined && split.at(i)!.length===1)
+        split.splice(i, 1, "0".concat(split.at(i) as string));
+    }
+
+    const dateNowStr = split.join("/");
+    const queryParams : Params = {    // through query params get information at a specific date
+      "fecha": encodeURI(dateNowStr)
+    }
 
     this.isNavigatedToday.set(true);
-    this.router.navigateByUrl("/dashboard/novedades/hoy");
+    this.router.navigate(['dashboard', 'tabla'], {
+      queryParams,
+      queryParamsHandling: 'replace'
+    });
   }
   
 }

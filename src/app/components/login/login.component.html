@@ -1,6 +1,10 @@
-<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:1368325630. -->
+<h5 id="loginTitle">Ingreso a Novedades</h5>
 <form ngClass="login-form" onload="refreshToken()">
-  <legend [ngClass]="'legend'" *ngIf="legendIsNecessary()">Autentícate antes de empezar</legend>
+  <img
+    ngClass="optecom-img"
+    src="https://erp.optecom.com.co/web/image/website/1/logo?unique=010309f"
+  />
+  <legend [ngClass]="'legend'" *ngIf="legendIsNecessary()">Autentíquese antes de empezar</legend>
   <!--Add buttons to initiate auth sequence and sign out-->
   <div id="loginBtnsDiv" [ngClass]="logBtnsClasses()['signout-visible-btn'] ? 'col-reverse' :'col-normal'">
     <button

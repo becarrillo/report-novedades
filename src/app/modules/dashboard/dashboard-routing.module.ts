@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: 'novedades'},
-  {path: 'novedades/hoy', loadComponent: () => import('../../components/table/table.component').then(m => m.TableComponent)},
-  {path: 'novedades', loadComponent: () => import('../../components/record-folders/record-folders.component').then(m => m.RecordFoldersComponent)}
+  {path: '', pathMatch: 'full', redirectTo: 'historial'},
+  {path: 'tabla', loadComponent: () => import('../../components/table/table.component').then(m => m.TableComponent)},
+  {path: 'historial', loadComponent: () => import('../../components/history-folders/history-folders.component').then(m => m.HistoryFoldersComponent)}
 ];
 
 @NgModule({
