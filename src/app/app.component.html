@@ -95,6 +95,8 @@
                         aria-label="Icon button with a logout icon"
                         [disabled]="getCurrentNavigation()==='/login'"
                         onclick="handleSignoutClick()"
+                        routerLink="/login"
+                        routerLinkActive="active"
                     >
                         <mat-icon fontIcon="logout"></mat-icon>
                     </button>

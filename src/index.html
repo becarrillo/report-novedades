@@ -59,11 +59,20 @@
         scope: SCOPES,
         callback: '', // defined later
       });
+      
       setInterval(() => { // Each 15 secs it sends a request to get the current data
-        listNovedades().then(n => {
-          window.localStorage.setItem('data', JSON.stringify(n));
-        });
+        if (
+          window.location.pathname!=='/login' && 
+          window.location.pathname!=='/dashboard/historial'
+        ) {
+          listNovedades().then(n => {
+            window.localStorage.setItem('data', JSON.stringify(n));
+          });
+          console.log('Testing other!!');
+        }
+        
       }, 15000);
+      
     }
 
     /**
@@ -96,15 +105,14 @@
     function handleSignoutClick() {
       var token;
       token = gapi.client.getToken();
-      console.log(token, " is my TOOOOKENnN!");
       if (token['access_token']!==null && token['access_token'].length>0) {
         google.accounts.oauth2.revoke(token['access_token']);
         gapi.client.setToken({"access_token": ''});
         window.localStorage.removeItem('data');
         window.localStorage.setItem('token', '');
       }
-      window.location.pathname!=='/login' ?
-        window.location.pathname = '/login' : window.location.reload();
+      if (window.location.pathname==='/login')
+        window.location.reload();
     }
 
     /**

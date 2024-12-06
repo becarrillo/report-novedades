@@ -145,10 +145,15 @@ export class TableComponent {
       });
 
       setInterval(() => {    // Each 5 secs send a request to get the current data
-        data = window.localStorage.getItem("data");
-        parsedSheetData = (parseData(data) as SheetData[]);
-        setDataResult(parsedSheetData);
-        setTitleWithData(dataResult);
+        if (
+          window.location.pathname!=='/login' && 
+          window.location.pathname!=='/dashboard/historial'
+        ) {
+          data = window.localStorage.getItem("data");
+          parsedSheetData = (parseData(data) as SheetData[]);
+          setDataResult(parsedSheetData);
+          setTitleWithData(dataResult);
+        }
       }, 5000);
     }
 
