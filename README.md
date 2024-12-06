@@ -1,6 +1,8 @@
-# Myapp
+# News reports for Optecom - Movistar vehicles into Reportec (data in Google Sheet)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
+This project is a readonly plattform to look vehicles and technicians movement wich have a state of many, for example: OK, WITHOUT REPORTEC, WRONG ADDRESS IN REPORTEC, OUT OF ASSIGNED ROUTE; among others.
+
+It was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
 
 ## Development server
 
