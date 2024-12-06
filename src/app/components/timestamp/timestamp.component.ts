@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
+/** Current date-time component with company name */
 @Component({
   selector: 'app-timestamp',
   standalone: true,
@@ -13,11 +14,11 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './timestamp.component.css'
 })
 export class TimestampComponent implements OnInit {
-  readonly timestamp = signal<string>('');
+  readonly dateTime = signal<string>('');
 
   ngOnInit(): void {
-    setInterval(() => {
-      this.timestamp.set(new Date().toLocaleString('es-CO'));
+    setInterval(() => {   // For each second the datetime updates it
+      this.dateTime.set(new Date().toLocaleString('es-CO'));
     }, 1000);
   }
 }

@@ -62,7 +62,7 @@
       setInterval(() => { // Each 15 secs it sends a request to get the current data
         listNovedades().then(n => {
           window.localStorage.setItem('data', JSON.stringify(n));
-        })
+        });
       }, 15000);
     }
 

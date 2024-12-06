@@ -88,6 +88,40 @@ export class TableComponent {
           dataResult = this.filterData(sheetData, TableComponent.params);
       }
       setDataResult(parsedSheetData);
+
+      let allResultsAreToday! : boolean;
+      const setTitleWithData = (dataResult : SheetData[]) => {
+        let split = TableComponent.getDateNow().toLocaleString('es-CO').substring(0, 9).split("/");
+        for (let i = 0; i < split.length; i++) {
+          if (split.at(i) !== undefined && split.at(i)!.length === 1)
+            split.splice(i, 1, "0".concat(split.at(i) as string));
+        }
+
+        const todayData : SheetData[] = [];
+        if (dataResult.length >= 1 && TableComponent.params['placa'] === undefined && TableComponent.params['tipo'] === undefined) {
+          for (var r of dataResult) {
+            if (r.fecha !== split.join("/")) {
+              allResultsAreToday = false;
+              break;
+            } else {
+              todayData.push(r);
+              allResultsAreToday = true;
+            }
+          }
+        } else {
+          TableComponent.params['fecha']===split.join("/") ? 
+            allResultsAreToday = true 
+          : allResultsAreToday = false;
+        }
+
+        allResultsAreToday ? (
+          TableComponent.data.set(todayData),
+          this.title.set("Novedades Reportec del día") 
+        ) : (
+          TableComponent.data.set(dataResult),
+          this.title.set("Resultados búsqueda de novedades Reportec")
+        );
+      }
       
       // To get params values coming from filter dialog form
       this.activatedRoute.queryParams.subscribe(query => {
@@ -105,49 +139,17 @@ export class TableComponent {
         parsedSheetData = (parseData(data) as SheetData[]);
         setDataResult(parsedSheetData);
         
-        let allResultsAreToday! : boolean;
-        const setTitleWithData = (dataResult : SheetData[]) => {
-          let split = TableComponent.getDateNow().toLocaleString('es-CO').substring(0, 9).split("/");
-          for (let i = 0; i < split.length; i++) {
-            if (split.at(i) !== undefined && split.at(i)!.length === 1)
-              split.splice(i, 1, "0".concat(split.at(i) as string));
-          }
-
-          const todayData : SheetData[] = [];
-          if (dataResult.length >= 1 && TableComponent.params['placa'] === undefined && TableComponent.params['tipo'] === undefined) {
-            for (var r of dataResult) {
-              if (r.fecha !== split.join("/")) {
-                allResultsAreToday = false;
-                break;
-              } else {
-                todayData.push(r);
-                allResultsAreToday = true;
-              }
-            }
-          } else {
-            TableComponent.params['fecha']===split.join("/") ? 
-              allResultsAreToday = true 
-            : allResultsAreToday = false;
-          }
-
-          allResultsAreToday ? (
-            TableComponent.data.set(todayData),
-            this.title.set("Novedades Reportec del día") 
-          ) : (
-            TableComponent.data.set(dataResult),
-            this.title.set("Resultados búsqueda de novedades Reportec")
-          );
-        }
+        
         setTitleWithData(dataResult);
         if (this.getData().length>=1) this.paginator.firstPage();
-        
-        setInterval(() => {    // Each 15 secs send a request to get the current data
-          data = window.localStorage.getItem("data");
-          parsedSheetData = (parseData(data) as SheetData[]);
-          setDataResult(parsedSheetData);
-          setTitleWithData(dataResult);
-        }, 15000);
       });
+
+      setInterval(() => {    // Each 5 secs send a request to get the current data
+        data = window.localStorage.getItem("data");
+        parsedSheetData = (parseData(data) as SheetData[]);
+        setDataResult(parsedSheetData);
+        setTitleWithData(dataResult);
+      }, 5000);
     }
 
     effect(() => {  // To look and to manage data signal changes updating the view data into table
@@ -262,7 +264,6 @@ export class TableComponent {
    */
   handDateOptionClick(ev : Event) {
     const option = (ev.currentTarget as HTMLButtonElement).textContent;
-    console.log(option);
     let date : Date = new Date();
     switch (option) {
       case "Ayer":
