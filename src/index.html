@@ -68,7 +68,6 @@
           listNovedades().then(n => {
             window.localStorage.setItem('data', JSON.stringify(n));
           });
-          console.log('Testing other!!');
         }
         
       }, 15000);
@@ -111,10 +110,12 @@
         window.localStorage.removeItem('data');
         window.localStorage.setItem('token', '');
       }
-      if (window.location.pathname==='/login')
-        window.location.reload();
+      // Depends on location user is, if this is different to '/login' the logout is done 
+      // redirecting to '/login' path without query params, or otherwise reload the login page
+      window.location.pathname!=='/login' ? 
+        window.location.href = `https://${window.location.hostname}/login`
+      : window.location.reload();
     }
-
     /**
      * Print the names and majors of students in a sample spreadsheet:
      * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit

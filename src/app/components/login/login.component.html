@@ -1,4 +1,8 @@
-<h5 id="loginTitle">Ingreso a Novedades Reportec</h5>
+@if(authBtnsClasses()['signout-visible-btn']) {
+  <h5 id="loginTitle">Usted ya está autenticado</h5>
+} @else {
+  <h5 id="loginTitle">Bienvenido a Novedades Reportec</h5>
+}
 <form ngClass="login-form" onload="refreshToken()">
   <img
     ngClass="optecom-img"
@@ -6,11 +10,11 @@
   />
   <legend [ngClass]="'legend'" *ngIf="legendIsNecessary()">Autentíquese antes de empezar</legend>
   <!--Add buttons to initiate auth sequence and sign out-->
-  <div id="loginBtnsDiv" [ngClass]="logBtnsClasses()['signout-visible-btn'] ? 'col-reverse' :'col-normal'">
+  <div id="loginBtnsDiv" [ngClass]="authBtnsClasses()['signout-visible-btn'] ? 'col-reverse' :'col-normal'">
     <button
       id="authorize_button"
       [ngClass]="
-        !logBtnsClasses()['authorization-visible-btn'] ? 
+        !authBtnsClasses()['authorization-visible-btn'] ? 
           'collapsed-btn' : 'authorization-visible-btn'
       "
       onclick="
@@ -22,7 +26,7 @@
     <button
       id="signout_button"
       [ngClass]="
-        !logBtnsClasses()['signout-visible-btn'] ? 
+        !authBtnsClasses()['signout-visible-btn'] ? 
           'collapsed-btn' : 'signout-visible-btn'
         "
       onclick="handleSignoutClick()"

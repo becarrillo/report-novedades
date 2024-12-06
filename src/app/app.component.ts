@@ -36,7 +36,6 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AppComponent {
   theme = signal<string>('');
-  isNavigatedToday = signal<boolean>(false);
   protected router = inject(Router);
   changeDetection!: ChangeDetectionStrategy.OnPush;
   readonly dialog = inject(MatDialog);
@@ -105,7 +104,6 @@ export class AppComponent {
       "fecha": encodeURI(dateNowStr)
     }
 
-    this.isNavigatedToday.set(true);
     this.router.navigate(['dashboard', 'tabla'], {
       queryParams,
       queryParamsHandling: 'replace'

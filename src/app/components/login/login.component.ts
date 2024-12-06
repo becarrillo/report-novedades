@@ -4,6 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthBtnsClasses } from '../../interfaces/auth-btns-classes';
 
 @Component({
   selector: 'app-login',
@@ -21,23 +22,23 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class LoginComponent {
   hide = signal<boolean>(true);
-  logBtnsClasses = signal<LoginBtnsClasses>({
+  authBtnsClasses = signal<AuthBtnsClasses>({
     "authorization-visible-btn": false,
     "signout-visible-btn": false
   });
-
   private readonly token : string | null = window.localStorage.getItem('token');
 
   constructor() {
+
     this.token = window.localStorage.getItem('token');
     this.token!==null && this.token.length>0 ? (
-      this.logBtnsClasses.set({
+      this.authBtnsClasses.set({
         "authorization-visible-btn": false,
         "signout-visible-btn": true
       })
     ) : (
       window.localStorage.setItem('data', ''),
-      this.logBtnsClasses.set({
+      this.authBtnsClasses.set({
         "authorization-visible-btn": true,
         "signout-visible-btn": false
       })
@@ -60,9 +61,4 @@ export class LoginComponent {
         true : false
     )
   }
-}
-
-interface LoginBtnsClasses {
-  'authorization-visible-btn': boolean;
-  'signout-visible-btn': boolean;
 }
