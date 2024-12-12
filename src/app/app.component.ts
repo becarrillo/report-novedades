@@ -89,11 +89,12 @@ export class AppComponent {
     TableComponent.params['placa'] = undefined;
     TableComponent.params['tipo'] = undefined;
 
-    const dateNowArr = TableComponent
+    const dateNow = TableComponent
       .getDateNow()
       .toLocaleString('es-CO')
-      .substring(0, 9);
-    let split = dateNowArr.split("/");
+      .substring(0, 10);
+    let split = dateNow.split(",");
+    split.length>=2 ? split = split[0].split("/") : split = dateNow.split("/");
     for (let i=0; i<split.length; i++) {
       if (split.at(i)!==undefined && split.at(i)!.length===1)
         split.splice(i, 1, "0".concat(split.at(i) as string));
