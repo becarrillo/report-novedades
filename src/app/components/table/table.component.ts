@@ -91,7 +91,7 @@ export class TableComponent {
 
       let allResultsAreToday! : boolean;
       const setTitleWithData = (dataResult : SheetData[]) => {
-        let split = TableComponent.getDateNow().toLocaleString('es-CO').substring(0, 9).split("/");
+        let split = TableComponent.getDateNow().toLocaleString('es-CO').substring(0, 10).split("/");
         for (let i = 0; i < split.length; i++) {
           if (split.at(i) !== undefined && split.at(i)!.length === 1)
             split.splice(i, 1, "0".concat(split.at(i) as string));
@@ -99,8 +99,10 @@ export class TableComponent {
 
         const todayData : SheetData[] = [];
         if (dataResult.length >= 1 && TableComponent.params['placa'] === undefined && TableComponent.params['tipo'] === undefined) {
+          var join = split.join("/");
+          if (join.length>10) join = join.substring(0, 10);
           for (var r of dataResult) {
-            if (r.fecha !== split.join("/")) {
+            if (r.fecha !== join) {
               allResultsAreToday = false;
               break;
             } else {
