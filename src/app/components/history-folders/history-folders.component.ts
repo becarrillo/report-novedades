@@ -10,6 +10,7 @@ import { SectionNode } from '../../interfaces/section-node';
 import { SheetData } from '../../interfaces/sheet-data';
 import { SheetRowDialogComponent } from '../sheet-row-dialog/sheet-row-dialog.component';
 import { TimestampComponent } from '../timestamp/timestamp.component';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 
 /** Component for news history of vehicles into Reportec SpreadSheet */
 @Component({
@@ -36,6 +37,8 @@ export class HistoryFoldersComponent {
 
   childrenAccessor = (node: SectionNode) => node.children ?? [];
   hasChild = (_: number, node: SectionNode) => !!node.children && node.children.length > 0;
+
+  http = inject(HttpClient);
 
   constructor() {
     let data = window.localStorage.getItem("data");
@@ -316,6 +319,53 @@ export class HistoryFoldersComponent {
     currEventElement.getAttribute('fontIcon') === 'folder_open' ?
       currEventElement.setAttribute('fontIcon', 'folder')
       : currEventElement.setAttribute('fontIcon', 'folder_open');
+  }
+
+  /** Download '*.xlsx' file button managing method into this page */
+  downloadAsExcel() {
+    const options = {
+      method: 'POST',
+      url: 'https://json-to-excel.p.rapidapi.com/',
+      headers: {
+        'x-rapidapi-key': 'a85a19515cmshf598623705adfa9p1eb411jsnbd5081443d80',
+        'x-rapidapi-host': 'json-to-excel.p.rapidapi.com',
+        'Content-Type': 'application/json'
+      },
+      data: {
+        filename: 'HISTORIAL_NOVEDADES_SEGUIMIENTO_EN_LINEA',
+        rows: this.data().map(row => {
+          return {
+            "FECHA": row.fecha,
+            "TIPO": row.tipo,
+            "PLACA": row.placa,
+            "NOMBRE_TEC1": row.nombreTec1,
+            "CEDULA_TEC1": row.cedulaTec1,
+            "NOMBRE_TEC2": row.nombreTec2,
+            "CEDULA_TEC2": row.cedulaTec2,
+            "HORA_INICIO_DESPLAZAMIENTO": row.horaInicioDesplazamiento,
+            "HORA_FIN_DESPLAZAMIENTO": row.horaFinDesplazamiento,
+            "TIEMPO_ESTACIONAMIENTO": row.tiempoEstacionamiento,
+            "DIRECCION_INICIAL": row.direccionInicial,
+            "DIRECCION_FINAL": row.direccionFinal,
+            "DIRECCION_REPORTEC": row.direccionReportec,
+            "OBSERVACIONES": row.observaciones
+          }
+        })
+      }
+    };
+
+    try {
+      const API_RESPONSE = this.http.post(options.url, options.data, {
+        headers: new HttpHeaders(options.headers)}
+      );
+      API_RESPONSE.subscribe(d => {
+        type MAP_RESPONSE_OBJECT_TYPE = {"url": string}; 
+        const MAP_RESPONSE_OBJECT = d as MAP_RESPONSE_OBJECT_TYPE;
+        if (d.hasOwnProperty("url")) window.location.href = String(MAP_RESPONSE_OBJECT.url);
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   manageTreeChildButton(

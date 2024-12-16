@@ -53,3 +53,13 @@ div:hover {
 .smargin-l {
     margin-left: 1.6rem;
 }
+
+#download {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+#download:hover {
+    cursor: pointer;
+};

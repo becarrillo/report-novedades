@@ -268,11 +268,12 @@ export class TableComponent {
    * selected date by click event
    */
   handDateOptionClick(ev : Event) {
-    const option = (ev.currentTarget as HTMLButtonElement).textContent;
     let date : Date = new Date();
+    
+    const option = (ev.currentTarget as HTMLButtonElement).textContent;
     switch (option) {
       case "Ayer":
-        date.setDate(new Date().getDate() - 1);
+        date.setDate(date.getDate() - 1);
         break;
         case "Hace dos días":
           date.setDate(new Date().getDate() - 2);
