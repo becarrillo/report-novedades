@@ -1,0 +1,14 @@
+{
+    "targets": {
+        "report-novedades": {
+            "hosting": {
+                "report-novedades": [
+                    "report-novedades"
+                ]
+            }
+        }
+    },
+    "projects": {
+        "default": "report-novedades"
+    }
+}
