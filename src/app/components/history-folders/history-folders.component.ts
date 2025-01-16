@@ -382,7 +382,9 @@ export class HistoryFoldersComponent {
 
       const lastWithSameLevel = this.treeLevelsArray.find(obj => obj.level===tree._getLevel(node))
       if (lastWithSameLevel===undefined)
-        this.treeLevelsArray.push({level: tree._getLevel(node)!, sectionName: node.name});
+        this.treeLevelsArray.push({level: tree._getLevel(node)!, sectionName: node.name})
+      else
+        lastWithSameLevel.sectionName = (ev.target as HTMLButtonElement).textContent as string;
     }
     this.openDialog();
   }
