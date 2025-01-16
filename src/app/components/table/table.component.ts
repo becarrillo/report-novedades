@@ -17,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SheetRowDialogComponent } from '../sheet-row-dialog/sheet-row-dialog.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { TimestampComponent } from '../timestamp/timestamp.component';
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 /** Table for Reportec vehicles news filter results */
 @Component({
@@ -140,8 +141,6 @@ export class TableComponent {
         data = window.localStorage.getItem("data");
         parsedSheetData = (parseData(data) as SheetData[]);
         setDataResult(parsedSheetData);
-        
-        
         setTitleWithData(dataResult);
         if (this.getData().length>=1) this.paginator.firstPage();
       });
@@ -277,9 +276,9 @@ export class TableComponent {
       case "Ayer":
         date.setDate(date.getDate() - 1);
         break;
-        case "Hace dos días":
-          date.setDate(new Date().getDate() - 2);
-          break;
+      case "Hace dos días":
+        date.setDate(new Date().getDate() - 2);
+        break;
       case "Hace una semana":
         date.setDate(new Date().getDate() - 7);
         break;
@@ -302,6 +301,15 @@ export class TableComponent {
       queryParams: TableComponent.params,
       queryParamsHandling: 'merge'
     });
+  }
+
+
+  getPlacaParam() {
+    return TableComponent.params['placa'];
+  }
+
+  getTipoParam() {
+    return TableComponent.params['tipo'];
   }
 
   setData(data: SheetData[]) {
